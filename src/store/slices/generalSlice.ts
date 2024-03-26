@@ -5,6 +5,8 @@ const initialState = {
   isSidebarOpen: false,
   categoryLoading: false,
   categories: [],
+  meals: [],
+  mealsLoading: false,
 };
 
 export const generalSlice = createSlice({
@@ -26,6 +28,17 @@ export const fetchCategories = () => async (dispatch) => {
     const response = await axios.get(`categories.php`);
     dispatch(setGeneralFields({ categories: response.data.categories }));
     dispatch(stopCategoryLoading());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchMealBySearch = (searchTerm) => async (dispatch) => {
+  try {
+    dispatch(setGeneralFields({ mealsLoading: true }));
+    const response = await axios.get(`search.php?s=${searchTerm}`);
+    dispatch(setGeneralFields({ meals: response.data.meals }));
+    dispatch(setGeneralFields({ mealsLoading: false }));
   } catch (error) {
     console.error(error);
   }
