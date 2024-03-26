@@ -3,10 +3,12 @@ import axios from "../../api/axios.ts";
 
 const initialState = {
   isSidebarOpen: false,
-  categoryLoading: false,
   categories: [],
+  categoryLoading: false,
   meals: [],
   mealsLoading: false,
+  categoryMeals: [],
+  categoryMealsLoading: false,
 };
 
 export const generalSlice = createSlice({
@@ -43,4 +45,15 @@ export const fetchMealBySearch = (searchTerm) => async (dispatch) => {
     console.error(error);
   }
 };
+export const fetchMealByCategory = (category) => async (dispatch) => {
+  try {
+    dispatch(setGeneralFields({ categoryMealsLoading: true }));
+    const response = await axios.get(`filter.php?c=${category}`);
+    dispatch(setGeneralFields({ categoryMeals: response.data.meals }));
+    dispatch(setGeneralFields({ categoryMealsLoading: false }));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default generalSlice.reducer;

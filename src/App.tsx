@@ -1,7 +1,7 @@
 import "./App.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header, Sidebar } from "./components";
-import { Category, Error, Home, MealDetails } from "./screens";
+import { CategoryPage, Error, Home, MealDetails } from "./screens";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCategories } from "./store/slices/generalSlice";
@@ -18,7 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/meal/:id" element={<MealDetails />} />
-        <Route path="/meal/category/:name" element={<Category />} />
+        <Route path="/meal/category/:name" element={<CategoryPage />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
