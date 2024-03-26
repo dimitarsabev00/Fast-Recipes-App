@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleMeal } from '../../store/slices/generalSlice';
 import { CategoryList } from '../../components';
 import MealSingle from '../../components/Meal/MealSingle';
+import { RootState } from '../../store';
 
 const MealDetails = () => {
   const {id} = useParams();
-  const { categories, meal, categoryLoading, mealLoading} = useSelector(
-    ({ generalSlice }) => generalSlice
+  const { categories, meal, categoryLoading, mealLoading} =useSelector(
+    (state: RootState) => state.generalSlice
   );
 
   const dispatch = useDispatch();

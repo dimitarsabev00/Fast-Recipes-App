@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import generalSlice from "./slices/generalSlice.ts";
+import generalSliceReducer from "./slices/generalSlice";
+
+export type RootState = ReturnType<typeof store.getState>;
 
 const store = configureStore({
   reducer: {
-    generalSlice,
+    generalSlice: generalSliceReducer,
   },
 });
 

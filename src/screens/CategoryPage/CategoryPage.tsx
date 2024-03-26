@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { MealList } from "../../components";
 import { fetchMealByCategory } from "../../store/slices/generalSlice";
+import { RootState } from "../../store";
 
 const CategoryPage = () => {
   const dispatch = useDispatch();
   const { name } = useParams();
-  const { categoryMeals, categories } = useSelector(
-    ({ generalSlice }) => generalSlice
+  const { categoryMeals, categories } =useSelector(
+    (state: RootState) => state.generalSlice
   );
   let catDescription = "";
 

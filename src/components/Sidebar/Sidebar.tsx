@@ -3,10 +3,11 @@ import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setGeneralFields } from "../../store/slices/generalSlice";
 import { Link } from "react-router-dom";
+import { RootState } from "../../store";
 
 const Sidebar = () => {
   const { isSidebarOpen, categories } = useSelector(
-    ({ generalSlice }) => generalSlice
+    (state: RootState) => state.generalSlice
   );
   const dispatch = useDispatch();
   return (

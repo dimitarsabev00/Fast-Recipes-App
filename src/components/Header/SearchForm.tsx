@@ -4,13 +4,16 @@ import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMealBySearch } from "../../store/slices/generalSlice";
+import { RootState } from "../../store";
 
 const SearchForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { meals } = useSelector(({ generalSlice }) => generalSlice);
+  const { meals } = useSelector(
+    (state: RootState) => state.generalSlice
+  );
 
   const handleSearchTerm = (e) => {
     e.preventDefault();
