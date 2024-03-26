@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  isSidebarOpen: false,
+};
 
 export const generalSlice = createSlice({
   name: "generalSlice",
