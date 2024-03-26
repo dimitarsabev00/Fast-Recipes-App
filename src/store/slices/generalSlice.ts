@@ -9,6 +9,8 @@ const initialState = {
   mealsLoading: false,
   categoryMeals: [],
   categoryMealsLoading: false,
+  meal: [],
+  mealLoading: false,
 };
 
 export const generalSlice = createSlice({
@@ -34,7 +36,6 @@ export const fetchCategories = () => async (dispatch) => {
     console.error(error);
   }
 };
-
 export const fetchMealBySearch = (searchTerm) => async (dispatch) => {
   try {
     dispatch(setGeneralFields({ mealsLoading: true }));
@@ -51,6 +52,16 @@ export const fetchMealByCategory = (category) => async (dispatch) => {
     const response = await axios.get(`filter.php?c=${category}`);
     dispatch(setGeneralFields({ categoryMeals: response.data.meals }));
     dispatch(setGeneralFields({ categoryMealsLoading: false }));
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const fetchSingleMeal = (id) => async (dispatch) => {
+  try {
+    dispatch(setGeneralFields({ mealLoading: true }));
+    const response = await axios.get(`lookup.php?i=${id}`);
+    dispatch(setGeneralFields({ meal: response.data.meals }));
+    dispatch(setGeneralFields({ mealLoading: false }));
   } catch (error) {
     console.error(error);
   }
