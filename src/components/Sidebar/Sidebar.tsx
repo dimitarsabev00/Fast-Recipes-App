@@ -5,8 +5,8 @@ import { setGeneralFields } from "../../store/slices/generalSlice";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const isSidebarOpen = useSelector(
-    ({ generalSlice }) => generalSlice.isSidebarOpen
+  const { isSidebarOpen, categories } = useSelector(
+    ({ generalSlice }) => generalSlice
   );
   const dispatch = useDispatch();
   return (
@@ -23,17 +23,19 @@ const Sidebar = () => {
 
       <div className="side-content">
         <ul className="side-nav">
-          <li className="side-item">
-            <Link
-              to=""
-              className="side-link ls-1 fs-13"
-              onClick={() => {
-                dispatch(setGeneralFields({ isSidebarOpen: false }));
-              }}
-            >
-              Category 1
-            </Link>
-          </li>
+          {categories.map((category) => (
+            <li className="side-item" key={category.idCategory}>
+              <Link
+                to={`/meal/category/${category.strCategory}`}
+                className="side-link ls-1 fs-13"
+                onClick={() => {
+                  dispatch(setGeneralFields({ isSidebarOpen: false }));
+                }}
+              >
+                {category.strCategory}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

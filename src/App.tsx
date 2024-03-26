@@ -2,7 +2,15 @@ import "./App.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header, Sidebar } from "./components";
 import { Category, Error, Home, MealDetails } from "./screens";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCategories } from "./store/slices/generalSlice";
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
+
   return (
     <Router>
       <Header />
