@@ -54,7 +54,7 @@ export const generalSlice = createSlice({
     });
     builder.addCase(fetchMealByCategory.fulfilled, (state, action) => {
       state.categoryMealsLoading = false;
-      state.meals = action.payload;
+      state.categoryMeals = action.payload;
     });
     builder.addCase(fetchMealByCategory.rejected, (state) => {
       state.categoryMealsLoading = false;
