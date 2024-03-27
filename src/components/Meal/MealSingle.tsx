@@ -72,11 +72,17 @@ const MealSingle: React.FC<MealSingleProps> = ({ meal }) => {
               <div className="tags flex align-start flex-wrap">
                 <h6 className="fs-16">Tags:</h6>
                 <ul className="flex align-center flex-wrap">
-                  {tags?.map((tag, idx) => (
-                    <li key={idx} className="fs-14">
-                      {tag}
-                    </li>
-                  ))}
+                  {tags?.length ? (
+                    <>
+                      {tags?.map((tag, idx) => (
+                        <li key={idx} className="fs-14">
+                          {tag}
+                        </li>
+                      ))}
+                    </>
+                  ) : (
+                    "No available tags"
+                  )}
                 </ul>
               </div>
 
