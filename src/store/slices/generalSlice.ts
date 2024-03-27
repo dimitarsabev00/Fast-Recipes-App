@@ -71,6 +71,4 @@ export const fetchSingleMeal = (id: number) => async (dispatch: Dispatch) => {
   }
 };
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 export default generalSlice.reducer;
