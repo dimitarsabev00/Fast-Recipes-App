@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header, Sidebar } from "./components";
 import { CategoryPage, Error, Home, MealDetails } from "./screens";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchCategories } from "./store/slices/generalSlice";
+import { useAppDispatch } from "./store/hooks";
+import { fetchCategories } from "./store/actions/fetchCategories";
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
