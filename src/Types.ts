@@ -23,4 +23,6 @@ export interface Meal {
   strInstructions: string;
   strMealThumb: string;
   strYoutube: string;
+  strSource: string;
+  strTags: string;
 }
