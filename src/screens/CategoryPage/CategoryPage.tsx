@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchMealByCategory } from "../../store/actions/fetchMealByCategory";
 
-const CategoryPage:React.FC = () => {
+const CategoryPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { name } = useParams();
   const { categoryMeals, categories } = useAppSelector(
@@ -22,7 +22,8 @@ const CategoryPage:React.FC = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchMealByCategory(name));
+    const categoryName = name ? name : "";
+    dispatch(fetchMealByCategory(categoryName));
   }, [name]);
 
   return (
