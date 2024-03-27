@@ -1,9 +1,9 @@
-import { Dispatch, createSlice } from "@reduxjs/toolkit";
-import axios from "../../api/axios.ts";
+import { createSlice } from "@reduxjs/toolkit";
 import { InitialState } from "../../Types.ts";
 import { fetchCategories } from "../actions/fetchCategories.ts";
 import { fetchMealBySearch } from "../actions/fetchMealBySearch.ts";
 import { fetchMealByCategory } from "../actions/fetchMealByCategory.ts";
+import { fetchSingleMeal } from "../actions/fetchSingleMeal.ts";
 
 const initialState: InitialState = {
   isSidebarOpen: false,
@@ -24,6 +24,7 @@ export const generalSlice = createSlice({
     setGeneralFields: (state, { payload }) => ({ ...state, ...payload }),
   },
   extraReducers: (builder) => {
+    //fetchCategories
     builder.addCase(fetchCategories.pending, (state) => {
       state.categoryLoading = true;
     });
@@ -35,6 +36,7 @@ export const generalSlice = createSlice({
       state.categoryLoading = false;
     });
 
+    //fetchMealBySearch
     builder.addCase(fetchMealBySearch.pending, (state) => {
       state.mealsLoading = true;
     });
@@ -46,6 +48,7 @@ export const generalSlice = createSlice({
       state.mealsLoading = false;
     });
 
+    //fetchMealByCategory
     builder.addCase(fetchMealByCategory.pending, (state) => {
       state.categoryMealsLoading = true;
     });
@@ -56,20 +59,21 @@ export const generalSlice = createSlice({
     builder.addCase(fetchMealByCategory.rejected, (state) => {
       state.categoryMealsLoading = false;
     });
+
+    //fetchSingleMeal
+    builder.addCase(fetchSingleMeal.pending, (state) => {
+      state.mealLoading = true;
+    });
+    builder.addCase(fetchSingleMeal.fulfilled, (state, action) => {
+      state.mealLoading = false;
+      state.meal = action.payload;
+    });
+    builder.addCase(fetchSingleMeal.rejected, (state) => {
+      state.mealLoading = false;
+    });
   },
 });
 
 export const { setGeneralFields } = generalSlice.actions;
-
-export const fetchSingleMeal = (id: number) => async (dispatch: Dispatch) => {
-  try {
-    dispatch(setGeneralFields({ mealLoading: true }));
-    const response = await axios.get(`lookup.php?i=${id}`);
-    dispatch(setGeneralFields({ meal: response.data.meals }));
-    dispatch(setGeneralFields({ mealLoading: false }));
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 export default generalSlice.reducer;

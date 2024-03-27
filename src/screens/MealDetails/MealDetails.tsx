@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./styles.scss";
 import Loader from "../../components/Loader/Loader";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleMeal } from "../../store/slices/generalSlice";
 import { CategoryList } from "../../components";
 import MealSingle from "../../components/Meal/MealSingle";
 import { RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { fetchSingleMeal } from "../../store/actions/fetchSingleMeal";
 
-const MealDetails = () => {
+const MealDetails: React.FC = () => {
   const { id } = useParams();
-  const { categories, meal, categoryLoading, mealLoading } = useSelector(
+  const { categories, meal, categoryLoading, mealLoading } = useAppSelector(
     (state: RootState) => state.generalSlice
   );
-  console.log(meal);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchSingleMeal(id));
+    const ID = id ? id : "";
+    dispatch(fetchSingleMeal(ID));
   }, [id]);
 
   let ingredientsArr = [],
