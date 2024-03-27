@@ -3,6 +3,7 @@ import axios from "../../api/axios.ts";
 import { InitialState } from "../../Types.ts";
 import { fetchCategories } from "../actions/fetchCategories.ts";
 import store from "../index.ts";
+import { fetchMealBySearch } from "../actions/fetchMealBySearch.ts";
 
 const initialState: InitialState = {
   isSidebarOpen: false,
@@ -33,22 +34,22 @@ export const generalSlice = createSlice({
     builder.addCase(fetchCategories.rejected, (state) => {
       state.categoryLoading = false;
     });
+
+    builder.addCase(fetchMealBySearch.pending, (state) => {
+      state.mealsLoading = true;
+    });
+    builder.addCase(fetchMealBySearch.fulfilled, (state, action) => {
+      state.mealsLoading = false;
+      state.meals = action.payload;
+    });
+    builder.addCase(fetchMealBySearch.rejected, (state) => {
+      state.mealsLoading = false;
+    });
   },
 });
 
 export const { setGeneralFields } = generalSlice.actions;
 
-export const fetchMealBySearch =
-  (searchTerm: string) => async (dispatch: Dispatch) => {
-    try {
-      dispatch(setGeneralFields({ mealsLoading: true }));
-      const response = await axios.get(`search.php?s=${searchTerm}`);
-      dispatch(setGeneralFields({ meals: response.data.meals }));
-      dispatch(setGeneralFields({ mealsLoading: false }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
 export const fetchMealByCategory =
   (category: string) => async (dispatch: Dispatch) => {
     try {

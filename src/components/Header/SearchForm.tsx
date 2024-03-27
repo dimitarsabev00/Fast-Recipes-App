@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import "./styles.scss";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchMealBySearch } from "../../store/slices/generalSlice";
+import { fetchMealBySearch } from "../../store/actions/fetchMealBySearch";
+import { useAppDispatch } from "../../store/hooks";
 
 const SearchForm: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchTerm = (e) => {
+  const handleSearchTerm = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.value.replace(/[^\w\s]/gi, "").length !== 0) {
       setSearchTerm(e.target.value);
     }
   };
 
-  const handleSearchResult = (e) => {
+  const handleSearchResult = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate("/");
     dispatch(fetchMealBySearch(searchTerm));
@@ -26,7 +26,7 @@ const SearchForm: React.FC = () => {
   return (
     <form
       className="search-form flex align-center"
-      onSubmit={(e) => handleSearchResult(e)}
+      onSubmit={handleSearchResult}
     >
       <input
         type="text"
