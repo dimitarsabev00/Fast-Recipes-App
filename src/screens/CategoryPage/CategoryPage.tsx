@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import "./styles.scss";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { MealList } from "../../components";
-import { fetchMealByCategory } from "../../store/slices/generalSlice";
 import { RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { fetchMealByCategory } from "../../store/actions/fetchMealByCategory";
 
-const CategoryPage = () => {
-  const dispatch = useDispatch();
+const CategoryPage:React.FC = () => {
+  const dispatch = useAppDispatch();
   const { name } = useParams();
-  const { categoryMeals, categories } =useSelector(
+  const { categoryMeals, categories } = useAppSelector(
     (state: RootState) => state.generalSlice
   );
   let catDescription = "";

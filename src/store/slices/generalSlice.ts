@@ -2,8 +2,8 @@ import { Dispatch, createSlice } from "@reduxjs/toolkit";
 import axios from "../../api/axios.ts";
 import { InitialState } from "../../Types.ts";
 import { fetchCategories } from "../actions/fetchCategories.ts";
-import store from "../index.ts";
 import { fetchMealBySearch } from "../actions/fetchMealBySearch.ts";
+import { fetchMealByCategory } from "../actions/fetchMealByCategory.ts";
 
 const initialState: InitialState = {
   isSidebarOpen: false,
@@ -45,22 +45,22 @@ export const generalSlice = createSlice({
     builder.addCase(fetchMealBySearch.rejected, (state) => {
       state.mealsLoading = false;
     });
+
+    builder.addCase(fetchMealByCategory.pending, (state) => {
+      state.categoryMealsLoading = true;
+    });
+    builder.addCase(fetchMealByCategory.fulfilled, (state, action) => {
+      state.categoryMealsLoading = false;
+      state.meals = action.payload;
+    });
+    builder.addCase(fetchMealByCategory.rejected, (state) => {
+      state.categoryMealsLoading = false;
+    });
   },
 });
 
 export const { setGeneralFields } = generalSlice.actions;
 
-export const fetchMealByCategory =
-  (category: string) => async (dispatch: Dispatch) => {
-    try {
-      dispatch(setGeneralFields({ categoryMealsLoading: true }));
-      const response = await axios.get(`filter.php?c=${category}`);
-      dispatch(setGeneralFields({ categoryMeals: response.data.meals }));
-      dispatch(setGeneralFields({ categoryMealsLoading: false }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
 export const fetchSingleMeal = (id: number) => async (dispatch: Dispatch) => {
   try {
     dispatch(setGeneralFields({ mealLoading: true }));
