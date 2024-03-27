@@ -2,26 +2,18 @@ import React, { useState } from "react";
 import "./styles.scss";
 import { BsSearch } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchMealBySearch } from "../../store/slices/generalSlice";
-import { RootState } from "../../store";
 
-const SearchForm = () => {
+const SearchForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const { meals } = useSelector(
-    (state: RootState) => state.generalSlice
-  );
 
   const handleSearchTerm = (e) => {
     e.preventDefault();
     if (e.target.value.replace(/[^\w\s]/gi, "").length !== 0) {
       setSearchTerm(e.target.value);
-      setErrorMsg("");
-    } else {
-      setErrorMsg("Invalid search term ...");
     }
   };
 
