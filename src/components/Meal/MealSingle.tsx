@@ -8,14 +8,14 @@ import { AiOutlineCheckSquare } from "react-icons/ai";
 
 type MealSingleProps = {
   meal: {
-    tags: string;
-    instructions: string;
-    title: string;
-    thumbnail: string;
-    category: string;
-    source: string;
-    measures: string[];
-    ingredients: string[];
+    tags?: string;
+    instructions?: string;
+    title?: string;
+    thumbnail?: string;
+    category?: string;
+    source?: string;
+    measures?: string[];
+    ingredients?: string[];
   };
 };
 const MealSingle: React.FC<MealSingleProps> = ({ meal }) => {

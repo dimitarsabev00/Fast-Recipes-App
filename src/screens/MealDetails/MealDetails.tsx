@@ -8,7 +8,7 @@ import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchSingleMeal } from "../../store/actions/fetchSingleMeal";
 
-const MealDetails: React.FC = () => {
+const MealDetails = () => {
   const { id } = useParams();
   const { categories, meal, categoryLoading, mealLoading } = useAppSelector(
     (state: RootState) => state.generalSlice
@@ -22,16 +22,17 @@ const MealDetails: React.FC = () => {
   let ingredientsArr = [],
     measuresArr = [],
     singleMeal = {};
-  if (meal && meal?.length > 0) {
+  if (meal && meal.length > 0) {
     for (let props in meal[0]) {
       if (props.includes("strIngredient")) {
-        if (meal[0][props]) ingredientsArr.push(meal[0][props]);
+        if (meal[0][props as keyof (typeof meal)[0]])
+          ingredientsArr.push(meal[0][props as keyof (typeof meal)[0]]);
       }
 
       if (props.includes("strMeasure")) {
-        if (meal[0][props]) {
-          if (meal[0][props].length > 1) {
-            measuresArr.push(meal[0][props]);
+        if (meal[0][props as keyof (typeof meal)[0]]) {
+          if (meal[0][props as keyof (typeof meal)[0]].length > 1) {
+            measuresArr.push(meal[0][props as keyof (typeof meal)[0]]);
           }
         }
       }
