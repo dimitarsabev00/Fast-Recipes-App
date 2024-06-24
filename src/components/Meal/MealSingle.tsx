@@ -44,7 +44,11 @@ const MealSingle: React.FC<MealSingleProps> = ({ meal }) => {
 
         <div className="sc-title">Meal Details</div>
         <section className="sc-details bg-white">
-          <div className="details-head grid">
+          <div
+            className={`${
+              window.innerWidth < 600 ? "details-head" : "details-head grid"
+            } `}
+          >
             <div className="details-img">
               <img src={meal?.thumbnail} alt="" className="img-cover" />
             </div>
