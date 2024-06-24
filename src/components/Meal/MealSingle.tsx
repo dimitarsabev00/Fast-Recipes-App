@@ -67,7 +67,7 @@ const MealSingle: React.FC<MealSingleProps> = ({ meal }) => {
                   <span className="fw-7">Source: &nbsp;</span>
                   <a href={meal.source}>
                     {meal.source
-                      ? (meal?.source).substring(0, 40) + "..."
+                      ? "Open Source"
                       : "Not found"}
                   </a>
                 </div>
