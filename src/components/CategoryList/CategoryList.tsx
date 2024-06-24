@@ -24,7 +24,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
                 className="category-itm align-center justify-center"
                 key={id}
               >
-                <div className="category-itm-img h-100 w-100 flex align-center justify-center">
+                <div className="flex align-center justify-center">
                   <img src={thumbnail} alt={title} />
                   <div className="category-itm-title bg-orange">
                     <h3 className="text-white fs-11 fw-6 ls-1 text-uppercase">
